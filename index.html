@@ -17,6 +17,8 @@
 		}
 		#section1{
 			background: linear-gradient(#00b5dd, #3365c5);
+			transition: 0.4s;
+			cursor: pointer;
 		}
 		#section2{
 			opacity: 0;
@@ -304,6 +306,8 @@
 	</style>
 </head>
 <body>
+	<audio id="dingdong" src="buttonSound.mp3"></audio>
+	<audio id="gameboy" src="gameboy.mp3"></audio>
 <section id="section1">
 	<img id="pattern" src="backpattern.png">
 	<div class="imgBox" id="map">
@@ -364,16 +368,21 @@
 	<div id="expfoot"></div>
 </section>
 	<script type="text/javascript">
+		gameboy.load();
+		dingdong.load();
 		function opening(){
 			topDex.setAttribute('src',"dogam_top.png")
 			dexTop.style.top = "calc(50% - 360px)";
 			dexBot.style.top = "calc(50% - 360px)";
 			hoennMap.style.opacity = "0.8";
+			gameboy.play();
 		}
 		function magnify(){
+			pattern.style.opacity = "0.2"
 			dex.style.width = "3200px";
 			dex.style.top = "calc(50% - 900px)";
 			dex.style.left = "calc(50% - 1695px)";
+			dex.style.opacity = "0";
 			dexTop.style.width = "3200px";
 			dexTop.style.top = "calc(50% - 900px)";
 			dexTop.style.left = "calc(50% - 1695px)";
@@ -386,21 +395,24 @@
 			map.style.height = "1105px";
 			map.style.top = "calc(50% - 550px)";
 			map.style.left = "calc(50% - 552.5px)";
+			map.style.outline = "black 20px solid"
 			hoennMap.style.top = "162px";
 			hoennMap.style.transition = "0.4s";
 			hoennMap.style.transitionDelay = "0s";
+			section1.style.background = "linear-gradient(#353972, #0f102a)"
 			section2.style.zIndex = "2"
 			section2.style.opacity = "1"
+			dingdong.play();
 		}
 
 		function adventure(){
 			section1.style.opacity = "0";
-			section1.style.transition = "0.4s";
 			section2.style.transitionDelay = "0s";
 			section2.style.opacity = "0";
 			section3.style.transitionDelay = "0.4s";
 			section3.style.zIndex = "3";
 			section3.style.opacity = "1";
+			dingdong.play();
 		}
 
 		function back(){
@@ -411,6 +423,7 @@
 			section2.style.opacity = "1";
 			section1.style.transitionDelay = "0.4s";
 			section1.style.opacity = "1";
+			dingdong.play();
 		}
 
 		var level = "0"
