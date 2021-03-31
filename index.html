@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pokémon: Hoenn Player</title>
+	<link rel="stylesheet" type="text/css" href="normalize.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+	<style>
+		body{
+			background: black;
+			overflow: hidden;
+		}
+		section{
+			position: fixed;
+			width: 100vw;
+			height: 100vh;
+		}
+		#section1{
+			background: linear-gradient(#00b5dd, #3365c5);
+		}
+		#section2{
+			opacity: 0;
+			z-index: -3;
+			transition: 0.4s;
+			transition-delay: 0.4s;
+		}
+		#section3{
+			background: black;
+			opacity: 0;
+			z-index: -2;
+			transition: 0.4s;
+		}
+		.left{text-align: left}
+		.right{text-align: right}
+		.white{ color: white; }
+		.lightgrey { color: #dddddd; }
+
+		.notoKR{font-weight: 500; font-family: 'Noto Sans KR', sans-serif;}
+		.roboto{font-weight: 500; font-family: 'Roboto', sans-serif;}
+
+		.bold{font-weight: 700;}
+		.light{font-weight: 400;}
+
+		#pattern{
+			position: relative;
+			width: 100%;
+			animation: yeah 1s infinite;
+			animation-timing-function: cubic-bezier(0,0,1,1);
+		}
+		@keyframes yeah{
+			0% {top: 0px;}
+			100% {top: -40px;}
+		}
+		.imgBox{
+			position: absolute;
+		}
+		.full{
+			width: 100%;
+		}
+
+		#dex{
+			width: 1280px;
+			transition: 0.4s;
+			top: calc(50% - 360px);
+			left: calc(50% - 678px);
+		}
+		#dexTop{
+			width: 1280px;
+			transition: 0.4s;
+			top: calc(50% - 305px);
+			left: calc(50% - 678px);
+		}
+		#dexBot{
+			width: 1280px;
+			transition: 0.4s;
+			top: calc(50% - 425px);
+			left: calc(50% - 678px);
+		}
+		#map{
+			width: 442px;
+			height: 442px;
+			background: black;
+			top: calc(50% - 220px);
+			left: calc(50% - 221px);
+			transition: 0.4s;
+		}
+		#hoennMap{
+			position: relative;
+			top: 65px;
+			opacity: 0;
+			transition: 0.8s;
+			transition-delay: 0.4s;
+		}
+
+		#clickMap{
+			position: absolute;
+			top: calc(50% - 550px);
+			left: calc(50% - 552.5px);
+			width: 1105px;
+			height: 1105px;
+		}
+		#mapExplain{
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			background: black;
+			width: 720px;
+			height: 260px;
+			font-size: 1.1em;
+			line-height: 1.6em;
+			padding: 30px;
+			opacity: 0;
+			transition: 0.2s;
+		}
+
+		.town{
+			position: absolute;
+			border-radius: 20px;
+			cursor: pointer;
+		}
+		.SQ{
+			width: 60px;
+			height: 60px;
+		}
+		.RT{
+			width: 60px;
+			height: 110px;
+		}
+		.LSQ{
+			width: 80px;
+			height: 80px;
+		}
+		.SRT{
+			width: 110px;
+			height: 60px;
+		}
+		#littleroot{
+			top: 690px;
+			left: 195px;
+		}
+		#oldale{
+			top: 615px;
+			left: 195px;
+		}
+		#petalburg{
+			top: 615px;
+			left: 120px;
+		}
+		#rustboro{
+			top: 470px;
+			left: 60px;
+		}
+		#dewford{
+			top: 825px;
+			left: 90px;
+		}
+		#slateport{
+			top: 625px;
+			left: 315px;
+		}
+		#mauville{
+			top: 420px;
+			left: 315px;
+		}
+		#verdanturf{
+			top: 420px;
+			left: 195px;
+		}
+		#lavaridge{
+			top: 300px;
+			left: 255px;
+		}
+		#fallarbor{
+			top: 195px;
+			left: 195px;
+		}
+		#fortree{
+			top: 225px;
+			left: 480px;
+		}
+		#lilycove{
+			top: 310px;
+			left: 715px;
+		}
+		#mossdeep{
+			top: 330px;
+			left: 910px;
+		}
+		#sootopolis{
+			top: 480px;
+			left: 810px;
+		}
+		#everGrande{
+			top: 430px;
+			left: 1010px;
+		}
+		#pacifidlog{
+			top: 630px;
+			left: 670px;
+		}
+		.sqIMG{
+			position: absolute;
+			top: 5px;
+			left: 5px;
+		}
+		.rtIMG{
+			position: absolute;
+			top: 5px;
+			left: 5px;
+		}
+		.lsqIMG{
+			position: absolute;
+			top: 5px;
+			left: 5px;
+		}
+		.srtIMG{
+			position: absolute;
+			top: 5px;
+			left: 5px;
+		}
+		#section3Back{
+			position: absolute;
+			width: 100%;
+		}
+		#titleHead{
+			position: absolute;
+			width: 1920px;
+			left: calc(50% - 960px);
+			height: 130px;
+		}
+		#titleEN{
+			position: absolute;
+			top: calc(50vh - 412px);
+			left: 130px;
+		}
+		#titleJP{
+			position: absolute;
+			top: calc(50vh - 412px);
+			right: 130px;
+		}
+		#explain{
+			position: absolute;
+			top: calc(50vh - 338.5px);
+			left: calc(50% - 960px);
+			width: 1920px;
+			height: 820px;
+			background: none;
+		}
+		#expHead{
+			position: absolute;
+			left: 124px;
+			font-size: 6em;
+		}
+		#expbuild{
+			position: absolute;
+			top: 94px;
+			right: 130px;
+			font-size: 1.1em;
+		}
+		#expHead2{
+			position: absolute;
+			top: 130px;
+			left: 130px;
+			font-size: 2em;
+		}
+		#expBody{
+			position: absolute;
+			top: 190px;
+			left: 130px;
+			font-size: 1.1em;
+			line-height: 1.6em;
+		}
+		#expImg{
+			position: absolute;
+			left: 130px;
+			bottom: 140px;
+			height: 390px;
+		}
+		#expVideo{
+			position: absolute;
+			right: 130px;
+			bottom: 140px;
+			width: 960px;
+			height: 540px;
+			background: none;
+			border: #dddddd 3px solid;
+		}
+		#expfoot{
+			position: absolute;
+			width: 1920px;
+			height: 130px;
+			left: calc(50% - 960px);
+			bottom: 0px;
+			background: none;
+		}
+		#button1{
+			position: absolute;
+			width: 480px;
+			top: -300px;
+			left: calc(50% - 240px);
+			cursor: pointer;
+		}
+
+	</style>
+</head>
+<body>
+<section id="section1">
+	<img id="pattern" src="backpattern.png">
+	<div class="imgBox" id="map">
+		<img id="hoennMap" class="full" src="Hoenn_ORAS.png">
+	</div>
+	<div class="imgBox" id="dex">
+		<img class="full" src="dogam.png">
+	</div>
+	<div class="imgBox" id="dexTop">
+		<img id="topDex" class="full" src="dogam_top_off.png">
+	</div>
+	<div class="imgBox" id="dexBot">
+		<img class="full" src="dogam_bottom.png">
+	</div>
+</section>
+<section id="section2">
+	<div id="clickMap">
+		<div id="littleroot" class="town SQ"><img class="sqIMG" src="townsymbol.png"></div>
+		<div id="oldale" class="town SQ"><img class="sqIMG" src="townsymbol.png"></div>
+		<div id="petalburg" class="town SQ"><img class="sqIMG" src="citysymbol.png"></div>
+		<div id="rustboro" class="town RT"><img class="rtIMG" src="cityRTsymbol.png"></div>
+		<div id="dewford" class="town SQ"><img class="sqIMG" src="townsymbol.png"></div>
+		<div id="slateport" class="town RT"><img class="rtIMG" src="cityRTsymbol.png"></div>
+		<div id="mauville" class="town SQ"><img class="sqIMG" src="citysymbol.png"></div>
+		<div id="verdanturf" class="town SQ"><img class="sqIMG" src="townsymbol.png"></div>
+		<div id="lavaridge" class="town SQ"><img class="sqIMG" src="townsymbol.png"></div>
+		<div id="fallarbor" class="town SQ"><img class="sqIMG" src="townsymbol.png"></div>
+		<div id="fortree" class="town SQ"><img class="sqIMG" src="citysymbol.png"></div>
+		<div id="lilycove" class="town LSQ"><img class="lsqIMG" src="cityLSQsymbol.png"></div>
+		<div id="mossdeep" class="town SRT"><img class="srtIMG" src="citySRTsymbol.png"></div>
+		<div id="sootopolis" class="town SQ"><img class="sqIMG" src="citysymbol.png"></div>
+		<div id="everGrande" class="town RT"><img class="rtIMG" src="cityRTsymbol.png"></div>
+		<div id="pacifidlog" class="town SQ"><img class="sqIMG" src="townsymbol.png"></div>
+		<div id="mapExplain">
+			<h1 id="mapExHead" class="notoKR white bold">루네시티</h1>
+			<p id="mapExBody" class="notoKR white light">거대 운석의 낙하로 생겨났다<br>하늘이나 바다에서만 들어갈 수 있는 마을</p>
+		</div>
+	</div>
+</section>
+<section id="section3">
+	<img id="section3Back" src="001_back.png">
+	<div id="titleHead">
+		<p id="titleEN" class="lightgrey light left roboto">Littleroot Town</p>
+		<p id="titleJP" class="lightgrey light right notoKR">ミシロタウン</p>
+	</div>
+	<div id="explain">
+		<h1 id="expHead" class="white left bold notoKR">미로마을</h1>
+		<p id="expbuild" class="lightgrey right notoKR">보유시설: 주인공의 집, 라이벌의 집, 털보박사의 연구소.</p>
+		<h2 id="expHead2" class="white left bold notoKR">어떤 색에도 물들지 않는 마을</h2>
+		<p id="expBody" class="lightgrey left light notoKR">미로마을은 호연지방 남서쪽에 위치한 마을이다. 
+			<br>주인공과 라이벌이 사는 마을이며, 호연지방의 교수인 털보박사의 연구소가 있는 곳이다.</p>
+		<img id="expImg" src="ORAS001.png">
+		<div id="expVideo">
+			<iframe id="expYoutube" width="960" height="540" src="https://www.youtube.com/embed/WGzvDdxKIGc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+	</div>
+	<img id="button1" src="button.png">
+	<div id="expfoot"></div>
+</section>
+	<script type="text/javascript">
+		function opening(){
+			topDex.setAttribute('src',"dogam_top.png")
+			dexTop.style.top = "calc(50% - 360px)";
+			dexBot.style.top = "calc(50% - 360px)";
+			hoennMap.style.opacity = "0.8";
+		}
+		function magnify(){
+			dex.style.width = "3200px";
+			dex.style.top = "calc(50% - 900px)";
+			dex.style.left = "calc(50% - 1695px)";
+			dexTop.style.width = "3200px";
+			dexTop.style.top = "calc(50% - 900px)";
+			dexTop.style.left = "calc(50% - 1695px)";
+			dexTop.style.opacity = "0";
+			dexBot.style.width = "3200px";
+			dexBot.style.top = "calc(50% - 900px)";
+			dexBot.style.left = "calc(50% - 1695px)";
+			dexBot.style.opacity = "0";
+			map.style.width = "1105px";
+			map.style.height = "1105px";
+			map.style.top = "calc(50% - 550px)";
+			map.style.left = "calc(50% - 552.5px)";
+			hoennMap.style.top = "162px";
+			hoennMap.style.transition = "0.4s";
+			hoennMap.style.transitionDelay = "0s";
+			section2.style.zIndex = "2"
+			section2.style.opacity = "1"
+		}
+
+		function adventure(){
+			section1.style.opacity = "0";
+			section1.style.transition = "0.4s";
+			section2.style.transitionDelay = "0s";
+			section2.style.opacity = "0";
+			section3.style.transitionDelay = "0.4s";
+			section3.style.zIndex = "3";
+			section3.style.opacity = "1";
+		}
+
+		function back(){
+			section3.style.transitionDelay = "0s";
+			section3.style.opacity = "0";
+			section3.style.zIndex = "1";
+			section2.style.transitionDelay = "0.4s";
+			section2.style.opacity = "1";
+			section1.style.transitionDelay = "0.4s";
+			section1.style.opacity = "1";
+		}
+
+		var level = "0"
+
+		window.onclick = function(){
+			if(level == "0"){
+				level = "1"
+				opening();
+			}else if(level =="1"){
+				level = "2"
+				magnify();
+			}
+		}
+		littleroot.onmouseover = function(){
+			littleroot.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "미로마을"
+			document.getElementById("mapExBody").innerHTML = "어떤 색으로도 물들지 않는 싱그러운 자연에 둘러싸인 시골마을"
+
+		}
+		littleroot.onmouseout = function(){
+			littleroot.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		littleroot.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Littleroot Town";
+			document.getElementById("titleJP").innerHTML = "ミシロタウン";
+			document.getElementById("expHead").innerHTML = "미로마을";
+			document.getElementById("expbuild").innerHTML = "보유시설: 털보박사의 연구소.";
+			document.getElementById("expHead2").innerHTML = "어떤 색에도 물들지 않는 마을"
+			document.getElementById("expBody").innerHTML = "미로마을은 호연지방 남서쪽에 위치한 마을이다.<br>주인공과 라이벌이 사는 마을이며, 호연지방의 교수인 털보박사의 연구소가 있는 곳이다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/WGzvDdxKIGc")
+			section3Back.setAttribute('src', "001_back.png")
+			expImg.setAttribute('src', "ORAS001.png")
+		}
+		oldale.onmouseover = function(){
+			oldale.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "고도마을"
+			document.getElementById("mapExBody").innerHTML = "형형색색의 꽃들과 수목의 초록색 대비가 아름다운 마을"
+
+		}
+		oldale.onmouseout = function(){
+			oldale.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		oldale.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Oldale Town";
+			document.getElementById("titleJP").innerHTML = "コトキタウン";
+			document.getElementById("expHead").innerHTML = "고도마을";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 프렌들리숍.";
+			document.getElementById("expHead2").innerHTML = "무언가가 희미하게 시작되는 곳"
+			document.getElementById("expBody").innerHTML = "고도마을은 호연 남부에 위치한 마을이다.<br>미로마을과 등화시티 사이에 위치한 작은 마을이다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/s4u7SHBF_Rc")
+			section3Back.setAttribute('src', "002_back.png")
+			expImg.setAttribute('src', "ORAS002.png")
+		}
+		petalburg.onmouseover = function(){
+			petalburg.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "등화도시"
+			document.getElementById("mapExBody").innerHTML = "교외에 펼쳐진 해안에서 은은하게 바다 내음이 감도는 마을"
+
+		}
+		petalburg.onmouseout = function(){
+			petalburg.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		petalburg.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Petalburg City";
+			document.getElementById("titleJP").innerHTML = "トウカシティ";
+			document.getElementById("expHead").innerHTML = "등화도시";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 등화체육관, 프렌들리숍.";
+			document.getElementById("expHead2").innerHTML = "자연과 사람이 어우러지는 마을"
+			document.getElementById("expBody").innerHTML = "등화도시는 호연지방의 서남쪽의 도시이다. <br>등화체육관의 관장은 노말 포켓몬을 사용하는 종길, 주인공의 아버지이다. <br>관장인 종길에게 도전이 가능한 것은 배지 4개를 획득한 이후이다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/yc88OMbMUmw")
+			section3Back.setAttribute('src', "003_back.png")
+			expImg.setAttribute('src', "ORAS003.png")
+		}
+		rustboro.onmouseover = function(){
+			rustboro.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "금탄도시"
+			document.getElementById("mapExBody").innerHTML = "데봉 코포레이션을 중심으로 호연의 산업을 관장하는 마을"
+
+		}
+		rustboro.onmouseout = function(){
+			rustboro.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		rustboro.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Rustboro City";
+			document.getElementById("titleJP").innerHTML = "カナズミシティ";
+			document.getElementById("expHead").innerHTML = "금탄도시";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 데봉 코포레이션, 트레이너 스쿨, 금탄체육관, 프렌들리숍.";
+			document.getElementById("expHead2").innerHTML = "자연과 과학의 융합을 추구하는 마을"
+			document.getElementById("expBody").innerHTML = "금탄도시는 호연 서부의 거대한 도시이다.<br>도시 건물들은 오래된 느낌을 주는 석조 건물 스타일로 디자인이 되어있어,<br>호연에서도 독특한 분위기의 도시 경관을 가지고 있다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/5wQ-aw43sV8")
+			section3Back.setAttribute('src', "004_back.png")
+			expImg.setAttribute('src', "ORAS004.png")
+		}
+		dewford.onmouseover = function(){
+			dewford.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "무로마을"
+			document.getElementById("mapExBody").innerHTML = "섬 사람들 사이에서는 항상 뭔가가 유행하고 있다"
+
+		}
+		dewford.onmouseout = function(){
+			dewford.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		dewford.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Dewford Town";
+			document.getElementById("titleJP").innerHTML = "ムロタウン ";
+			document.getElementById("expHead").innerHTML = "무로마을";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 무로집회소, 무로체육관.";
+			document.getElementById("expHead2").innerHTML = "푸른 바다에 떠 있는 작은 섬"
+			document.getElementById("expBody").innerHTML = "무로마을은 호연 서남쪽에 섬에 있는 마을이다.<br>섬 북쪽에 있는 바위 동굴은 돌 수집가들에게 인기가 많다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/8MxAXl38wUc")
+			section3Back.setAttribute('src', "005_back.png")
+			expImg.setAttribute('src', "ORAS005.png")
+		}
+		slateport.onmouseover = function(){
+			slateport.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "잿빛도시"
+			document.getElementById("mapExBody").innerHTML = "여러 지방에서 사람들이 모여 활기에 넘치는 항구 도시"
+
+		}
+		slateport.onmouseout = function(){
+			slateport.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		slateport.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Slateport City";
+			document.getElementById("titleJP").innerHTML = "カイナシティ";
+			document.getElementById("expHead").innerHTML = "잿빛도시";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 바다의 과학박물관, 포켓몬 애호가 클럽, 해양조선소, 잿빛 항구, 콘테스트 라이브, 잿빛 시장, 프렌들리숍.";
+			document.getElementById("expHead2").innerHTML = "사람과 포켓몬 그리고 자연이 왕래하는 항구"
+			document.getElementById("expBody").innerHTML = "잿빛도시는 호연지방의 남쪽 해안도시이다.<br>조선소, 해양 박물관, 항구 등 바다에 관련된 시설이 많다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/OF2WJ81WCuQ")
+			section3Back.setAttribute('src', "006_back.png")
+			expImg.setAttribute('src', "ORAS006.png")
+		}
+		mauville.onmouseover = function(){
+			mauville.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "보라시티"
+			document.getElementById("mapExBody").innerHTML = "예스러움과 새로움이 교차하는 호연의 중심에 위치한 대도시"
+
+		}
+		mauville.onmouseout = function(){
+			mauville.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		mauville.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Mauville City";
+			document.getElementById("titleJP").innerHTML = "キンセツシティ";
+			document.getElementById("expHead").innerHTML = "보라시티";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 보라 게임코너, 보라 체육관, 카제노 사이클숍, 프렌들리숍.";
+			document.getElementById("expHead2").innerHTML = "밝게 빛나는 즐거운 마을"
+			document.getElementById("expBody").innerHTML = "보라시티는 호연의 중추 역할을 하는 도시이다.<br>게임코너와 카제노 사이클숍이 유명하다.<br>금탄도시와 BGM을 공유한다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/5wQ-aw43sV8")
+			section3Back.setAttribute('src', "007_back.png")
+			expImg.setAttribute('src', "ORAS007.png")
+		}
+		verdanturf.onmouseover = function(){
+			verdanturf.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "잔디마을"
+			document.getElementById("mapExBody").innerHTML = "바람의 흐름에 따른 영향으로 마을에는 화산재가 날아들지 않는다"
+
+		}
+		verdanturf.onmouseout = function(){
+			verdanturf.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		verdanturf.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Verdanturf Town";
+			document.getElementById("titleJP").innerHTML = "シダケタウン";
+			document.getElementById("expHead").innerHTML = "잔디마을";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 콘테스트 라이브, 프렌들리숍.";
+			document.getElementById("expHead2").innerHTML = "풀 내음의 바람이 부는 고원"
+			document.getElementById("expBody").innerHTML = "잔디마을은 호연 서부 산지와 평야 사이에 위치한 작은 마을이다.<br>민진의 사촌인 미진의 가족들이 살고 있는 집은 마을 남쪽에 위치한다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/MHFBO-ASaE8")
+			section3Back.setAttribute('src', "008_back.png")
+			expImg.setAttribute('src', "ORAS008.png")
+		}
+		lavaridge.onmouseover = function(){
+			lavaridge.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "용암마을"
+			document.getElementById("mapExBody").innerHTML = "모든 병에 특효라는 소문의 온천은 호연지방의 인기 있는 장소"
+
+		}
+		lavaridge.onmouseout = function(){
+			lavaridge.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		lavaridge.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Lavaridge Town";
+			document.getElementById("titleJP").innerHTML = "フエンタウン";
+			document.getElementById("expHead").innerHTML = "용암마을";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 온천, 용암체육관, 한약방,  프렌들리숍.";
+			document.getElementById("expHead2").innerHTML = "포켓몬센터와 온천이 좋은 곳"
+			document.getElementById("expBody").innerHTML = "용암마을은 호연 중서부에 있는 작은 마을이다.<br>온천과 장수촌으로 유명하다.<br>고도마을과 BGM을 공유한다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/s4u7SHBF_Rc")
+			section3Back.setAttribute('src', "009_back.png")
+			expImg.setAttribute('src', "ORAS009.png")
+		}
+		fallarbor.onmouseover = function(){
+			fallarbor.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "단풍마을"
+			document.getElementById("mapExBody").innerHTML = "운석 연구를 위해 모인 학자들에 의해 만들어진 마을"
+
+		}
+		fallarbor.onmouseout = function(){
+			fallarbor.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		fallarbor.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Fallarbor Town";
+			document.getElementById("titleJP").innerHTML = "ハジツゲタウン";
+			document.getElementById("expHead").innerHTML = "단풍마을";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 콘테스트 라이브, 프렌들리숍.";
+			document.getElementById("expHead2").innerHTML = "작은 밭이 있는 농촌"
+			document.getElementById("expBody").innerHTML = "단풍마을은 호연 북부에 있는 작은 농경 마을이다.<br>굴뚝산에 아주 밀접하게 붙어 있어서 화산재가 끊임없이 마을 근처에 흩날리고 있다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/JmPSrxM0gZc")
+			section3Back.setAttribute('src', "010_back.png")
+			expImg.setAttribute('src', "ORAS010.png")
+		}
+		fortree.onmouseover = function(){
+			fortree.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "검방울시티"
+			document.getElementById("mapExBody").innerHTML = "마을에 사는 사람도 포켓몬도 자연과 함께 일어나며 자연과 함께 잠든다"
+
+		}
+		fortree.onmouseout = function(){
+			fortree.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		fortree.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Fortree City";
+			document.getElementById("titleJP").innerHTML = "ヒワマキシティ";
+			document.getElementById("expHead").innerHTML = "검방울시티";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 검방울체육관, 가구점, 프렌들리숍.";
+			document.getElementById("expHead2").innerHTML = "나무 위에서 자연과 어우려지는 마을"
+			document.getElementById("expBody").innerHTML = "검방울시티는 호연지방의 해안시티와 보라시티 사이에 있는 도시이다.<br>검방울시티의 주민들은 나무 집에서 살고,<br>나무 꼭대기에 있는 구름다리를 통해 나다니고 있다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/iY8BG3VtO_s")
+			section3Back.setAttribute('src', "011_back.png")
+			expImg.setAttribute('src', "ORAS011.png")
+		}
+		lilycove.onmouseover = function(){
+			lilycove.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "해안시티"
+			document.getElementById("mapExBody").innerHTML = "포켓몬 콘테스트 라이브!로 마을의 부흥에 힘쓰고 있는 관광도시"
+
+		}
+		lilycove.onmouseout = function(){
+			lilycove.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		lilycove.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Lilycove City";
+			document.getElementById("titleJP").innerHTML = "ミナモシティ";
+			document.getElementById("expHead").innerHTML = "해안시티";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 안해민박, 해안 미술관, 해안시티 항구, 콘테스트 라이브, 해안 백화점.";
+			document.getElementById("expHead2").innerHTML = "육지가 끝나고 바다가 시작되는 곳"
+			document.getElementById("expBody").innerHTML = "해안시티는 호연지방의 동쪽 끝 해안도시이다.<br>포켓몬 세계에서 칼로스지방의 미르시티, 하나의 구름시티와 뇌문시티,<br>성도의 금빛시티에 이어 5번째로 큰 도시이다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/s2ut8s2hdSc")
+			section3Back.setAttribute('src', "012_back.png")
+			expImg.setAttribute('src', "ORAS012.png")
+		}
+		mossdeep.onmouseover = function(){
+			mossdeep.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "이끼시티"
+			document.getElementById("mapExBody").innerHTML = "아득한 우주를 목표로 밤낮 없는 연구가 행해지고 있다"
+
+		}
+		mossdeep.onmouseout = function(){
+			mossdeep.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		mossdeep.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Mossdeep City";
+			document.getElementById("titleJP").innerHTML = "トクサネシティ";
+			document.getElementById("expHead").innerHTML = "이끼시티";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 우주 센터, 게임코너, 이끼체육관, 프렌들리숍.";
+			document.getElementById("expHead2").innerHTML = "신조는 포켓몬을 소중히!"
+			document.getElementById("expBody").innerHTML = "이끼시티 호연 본섬에서 동쪽으로 멀리 떨어진 섬 위에 있다.<br>맑고, 화창한 날씨 덕분에 우주 센터가 지어졌다.<br>금탄도시와 BGM을 공유한다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/5wQ-aw43sV8")
+			section3Back.setAttribute('src', "013_back.png")
+			expImg.setAttribute('src', "ORAS013.png")
+		}
+		sootopolis.onmouseover = function(){
+			sootopolis.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "루네시티"
+			document.getElementById("mapExBody").innerHTML = "거대 운석의 낙하로 생겨났다<br>하늘이나 바다에서만 들어갈 수 있는 마을"
+
+		}
+		sootopolis.onmouseout = function(){
+			sootopolis.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		sootopolis.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Sootopolis City";
+			document.getElementById("titleJP").innerHTML = "ルネシティ";
+			document.getElementById("expHead").innerHTML = "루네시티";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 각성의 사당, 루네체육관, 프렌들리숍.";
+			document.getElementById("expHead2").innerHTML = "역사가 잠들어 있는 신비한 마을"
+			document.getElementById("expBody").innerHTML = "루네시티는 화산 분화구 안에 위치하고 있다.<br>사람들이 따뜻하고, 신선한 물을 찾아 분화구 안으로 모여들게 되고,<br>곧 도시가 되었다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/keEhvbjXvnQ")
+			section3Back.setAttribute('src', "014_back.png")
+			expImg.setAttribute('src', "ORAS014.png")
+		}
+		pacifidlog.onmouseover = function(){
+			pacifidlog.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "황금마을"
+			document.getElementById("mapExBody").innerHTML = "원래는 바다에서 사는 사람들이 수상 창고로 쓰던 장소"
+
+		}
+		pacifidlog.onmouseout = function(){
+			pacifidlog.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		pacifidlog.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Pacifidlog Town";
+			document.getElementById("titleJP").innerHTML = "キナギタウン";
+			document.getElementById("expHead").innerHTML = "황금마을";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터.";
+			document.getElementById("expHead2").innerHTML = "햇님이 물가를 비춰주는 마을"
+			document.getElementById("expBody").innerHTML = "황금마을은 코산호 군집 위 나무 땟목으로 지어졌다.<br>주민들은 모두 낚시와 다이빙을 즐기고 있다.<br>해안시티와 BGM을 공유한다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/96MVhTl1pQo")
+			section3Back.setAttribute('src', "015_back.png")
+			expImg.setAttribute('src', "ORAS015.png")
+		}
+		everGrande.onmouseover = function(){
+			everGrande.style.background = "white";
+			mapExplain.style.opacity = "1";
+			document.getElementById("mapExHead").innerHTML = "그랜드시티"
+			document.getElementById("mapExBody").innerHTML = "대단히 화려한 색의 꽃이 피어난다<br>포켓몬 리그가 열리는 마을"
+
+		}
+		everGrande.onmouseout = function(){
+			everGrande.style.background = "none";
+			mapExplain.style.opacity = "0"
+			document.getElementById("mapExHead").innerHTML = ""
+			document.getElementById("mapExBody").innerHTML = ""
+
+		}
+		everGrande.onclick = function(){
+			adventure();
+			document.getElementById("titleEN").innerHTML = "Ever Grande City";
+			document.getElementById("titleJP").innerHTML = "サイユウシティ";
+			document.getElementById("expHead").innerHTML = "그랜드시티";
+			document.getElementById("expbuild").innerHTML = "보유시설: 포켓몬센터, 포켓몬리그, 프렌들리숍.";
+			document.getElementById("expHead2").innerHTML = "꽃과 바다와 포켓몬의 낙원"
+			document.getElementById("expBody").innerHTML = "그랜드시티는 호연 동쪽에 위치한 섬으로 포켓몬 리그가 위치하고 있다.<br>섬은 챔피언로드로 인해 남북으로 나뉘어져 있다."
+			expYoutube.setAttribute('src', "https://www.youtube.com/embed/NJ4FHXuTYQc")
+			section3Back.setAttribute('src', "016_back.png")
+			expImg.setAttribute('src', "ORAS016.png")
+		}
+
+		button1.onclick = function(){
+			back();
+		}
+	</script>
+</body>
+</html>
