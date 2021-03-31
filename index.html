@@ -261,7 +261,7 @@
 		}
 		#expbuild{
 			position: absolute;
-			top: 94px;
+			top: 100px;
 			right: 130px;
 			font-size: 1.1em;
 		}
@@ -282,7 +282,7 @@
 			position: absolute;
 			left: 130px;
 			bottom: 140px;
-			height: 390px;
+			height: 360px;
 		}
 		#expVideo{
 			position: absolute;
@@ -291,7 +291,7 @@
 			width: 960px;
 			height: 540px;
 			background: none;
-			border: #dddddd 3px solid;
+			outline: #dddddd 3px solid;
 		}
 		#expfoot{
 			position: absolute;
@@ -307,6 +307,7 @@
 			top: -300px;
 			left: calc(50% - 240px);
 			cursor: pointer;
+			transition: 0.4s;
 		}
 
 	</style>
@@ -412,6 +413,7 @@
 		}
 
 		function adventure(){
+			button1.style.transform = "rotate(0deg)";
 			section1.style.opacity = "0";
 			section2.style.transitionDelay = "0s";
 			section2.style.opacity = "0";
@@ -422,6 +424,7 @@
 		}
 
 		function back(){
+			button1.style.transform = "rotate(180deg)";
 			section3.style.transitionDelay = "0s";
 			section3.style.opacity = "0";
 			section3.style.zIndex = "1";
